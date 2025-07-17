@@ -14,6 +14,7 @@ The 1000 Genomes Project. *A global reference for human genetic variation*. **Na
 - [SRR062635](https://www.ncbi.nlm.nih.gov/sra/SRR062635)
 - [SRR062637](https://www.ncbi.nlm.nih.gov/sra/SRR062637)
 
+**Note:**
 - Sample population: Yoruba in Ibadan, Nigeria (YRI)
 - Platform: Illumina Genome Analyzer II
 - Technology: Paired-end short-read whole-genome sequencing (WGS)
@@ -48,14 +49,14 @@ cd WGS_pipeline
 
 2. **Install dependencies**   
 
-Install bioinformatic tools:
+- Install bioinformatic tools:
 ```bash
 brew install fastqc fastp bwa samtools bcftools
 ```
 
-Manually install GATK and VEP
+- Manually install GATK and VEP
 
-Install python packages:
+- Install python packages:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -63,7 +64,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Run each step:
+- Run each step:
 
 ```bash
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
