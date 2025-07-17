@@ -1,104 +1,110 @@
-# WGS_pipeline
+# 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-## Download Data:
+This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence, annotated variants, following widely accepted best practices. It integrates quality control, adapter trimming, alignment, variant calling, and annotation steps using well-established open-source tools.
 
-✅ 1. Download FASTQ files (full WGS) from 1000 genome using SRA Toolkit
+---
 
+## 📁 Dataset
 
-✅ 2. Align to the full genome and extract chr22 only
+**Study:**  
+The 1000 Genomes Project. *A global reference for human genetic variation*. **Nature** (2015)
 
-# Index your hg38 or hg19 reference genome
-bwa index reference.fasta
+**SRA Accessions:**  
+- [SRR062634](https://www.ncbi.nlm.nih.gov/sra/SRR062634)
+- [SRR062635](https://www.ncbi.nlm.nih.gov/sra/SRR062635)
+- [SRR062637](https://www.ncbi.nlm.nih.gov/sra/SRR062637)
 
-# Align each sample to reference
-bwa mem -t 8 reference.fasta SRR622461_1.fastq SRR622461_2.fastq | \
-    samtools view -b -o SRR622461.bam -
+- Sample population: Yoruba in Ibadan, Nigeria (YRI)
+- Platform: Illumina Genome Analyzer II
+- Technology: Paired-end short-read whole-genome sequencing (WGS)
+- Objective: Benchmark small variant calling pipeline using high-quality public data
 
-bwa mem -t 8 reference.fasta SRR622462_1.fastq SRR622462_2.fastq | \
-    samtools view -b -o SRR622462.bam -
+---
 
-bwa mem -t 8 reference.fasta SRR622463_1.fastq SRR622463_2.fastq | \
-    samtools view -b -o SRR622463.bam -
+## 🧰 Tech Stack
 
-Sort and index each BAM
+The pipeline uses a combination of command-line tools and Python-based utilities within a virtual environment:
 
-samtools sort -o SRR622461.sorted.bam SRR622461.bam
-samtools index SRR622461.sorted.bam
+- **Python**: 3.13.3 (via `venv`)
+- **fastqc**: 0.12.1 — for read quality control
+- **multiqc**: 1.30 — to aggregate and summarize QC reports
+- **fastp**: 1.0.1 — for read trimming and filtering
+- **BWA-MEM** – Alignment to the reference genome  
+- **SAMtools** – File conversion and sorting  
+- **GATK** – Duplicate marking, BQSR, and variant calling  
+- **bcftools** – Variant filtering and statistics  
+- **VEP** – Variant annotation (Ensembl Variant Effect Predictor)  
+- **IGV (optional)** – Manual visualization of alignments and variants  
 
-samtools view -b SRR622461.sorted.bam chr22 > SRR622461.chr22.bam
-samtools index SRR622461.chr22.bam
+---
 
-Repeat for 622462 and 622463
+## 🚀 How to Run the Pipelines
 
+1. **Clone the repository**
+```bash
+git clone https://github.com/XuejianXiong/WGS_pipeline.git
+cd WGS_pipeline
+```
 
-##  Quality Contro:
+2. **Install dependencies**   
 
-✅ 3. Quality Control (Raw FASTQ)
+Install bioinformatic tools:
+```bash
+brew install fastqc fastp bwa samtools bcftools
+```
 
-Tool: FastQC, MultiQC
+Manually install GATK and VEP
 
-Output: per-sample QC reports
+Install python packages:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-✅ 4. Trimming (optional)
+Run each step:
 
-Tool: Trimmomatic or fastp
+```bash
+./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
+./Scripts/01_qc_reads.sh                          # Run Fastqc and Multiqc
+./Scripts/02_trim_fastp.sh                        # Trim read files using fastp
+```
 
-Output: cleaned FASTQ files
+---
 
-## Alignment:
+## 📂 Folder Structure
 
-✅ 5. Alignment
+```
+WGS_pipeline/
+├── Data/                 # Raw FASTQ files
+├── Result/               # Output: trimmed files, BAMs, VCFs
+├── Report/               # FastQC and MultiQC reports
+├── Scripts/              # Wrapper scripts for each step
+├── env/                  # (Optional) virtual environment
+├── README.md             # Project documentation
+```
 
-Tool: BWA-MEM
+---
 
-Output: sorted BAM files
+## 🧪 Key Results
 
-✅ 6. Post-processing
+After successful execution, the pipeline will generate:
 
-Tools: SAMtools, Picard
+✔️ Trimmed FASTQ files in Result/
 
-Mark duplicates, sort, index, etc.
+✔️ High-quality aligned BAM files
 
-✅ 7. Base Quality Score Recalibration (BQSR) (optional)
+✔️ Raw and filtered VCF files
 
-Tool: GATK BaseRecalibrator
+✔️ Annotated variant reports using VEP
 
-Requires known sites: dbSNP, Mills, etc.
+✔️ Quality reports in HTML and JSON via FastQC and MultiQC
 
-## Variant Calling:
+We can visually inspect BAMs and VCFs using IGV.
 
-✅ 8. Variant Calling
+---
 
-Tool: GATK HaplotypeCaller (SNVs/Indels)
+## 📘 License
 
-Tool: Manta (SVs)
-
-✅ 9. Variant Filtering
-
-Tool: GATK VariantFiltration, bcftools
-
-## Variant Annotation and Visualization:
-
-✅ 10. Annotation
-
-Tool: Ensembl VEP or SnpEff
-
-✅ 11. Visualization
-
-Tools: IGV, MultiQC, custom Python/R plots
-
-
-## 💡 Tips for Scaling to AWS
-
-Store raw data & references in S3
-
-Use modular Docker images (as we discussed)
-
-Use WDL/Nextflow for orchestration
-
-Leverage AWS Batch for compute scaling
-
-## Downstream Analysis:
-
-Use GSEA/DESeq2 for downstream if comparing tumor/normal
-
+MIT License – feel free to use, adapt, and share.

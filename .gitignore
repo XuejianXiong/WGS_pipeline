@@ -168,5 +168,5 @@ cython_debug/
 .vscode
 _LAST
 Data/SRR*
-#Result/
+Result/*.fastq
 2025*/

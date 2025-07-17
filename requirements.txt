@@ -1,0 +1,5 @@
+Python 3.13.3
+
+fastqc==0.12.1
+multiqc==1.30
+fastp==1.0.1
