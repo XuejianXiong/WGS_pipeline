@@ -167,6 +167,9 @@ cython_debug/
 # Directories
 .vscode
 _LAST
+Data/*.fastq
+Data/*.fa
+Data/*.fa.*
 Data/SRR*
 Result/*.fastq
 2025*/
