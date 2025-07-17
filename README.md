@@ -20,7 +20,7 @@ The 1000 Genomes Project. *A global reference for human genetic variation*. **Na
 - Technology: Paired-end short-read whole-genome sequencing (WGS)
 - Objective: Benchmark small variant calling pipeline using high-quality public data
 
-**Reference Genome (chr22)**
+**Reference Genome (chr22):**
 A partial reference genome is used to reduce compute load during development and testing:
 
 - Source: UCSC Genome Browser (hg38 assembly)
