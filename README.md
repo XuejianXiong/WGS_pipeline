@@ -21,7 +21,7 @@ The 1000 Genomes Project. *A global reference for human genetic variation*. **Na
 - Objective: Benchmark small variant calling pipeline using high-quality public data
 
 **Reference Genome (chr22):**
-A partial reference genome is used to reduce compute load during development and testing:
+A partial reference genome is used to reduce compute load during development and testing.
 
 - Source: UCSC Genome Browser (hg38 assembly)
 - Chromosome: chr22
