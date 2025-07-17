@@ -19,14 +19,7 @@ The 1000 Genomes Project. *A global reference for human genetic variation*. **Na
 - Platform: Illumina Genome Analyzer II
 - Technology: Paired-end short-read whole-genome sequencing (WGS)
 - Objective: Benchmark small variant calling pipeline using high-quality public data
-
-**Reference Genome (chr22):**
-
-A partial reference genome is used to reduce compute load during development and testing.
-
-- Source: UCSC Genome Browser (hg38 assembly)
-- Chromosome: chr22
-- Download URL: http://hgdownload.cse.ucsc.edu/goldenPath/hg38/chromosomes/chr22.fa.gz
+- Reference Genome: A partial reference genome is used to minimize computational load during development and testing. Specifically, chromosome 22 from the hg38 assembly is downloaded from the UCSC Genome Browser.
 
 ---
 
