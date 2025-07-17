@@ -1,0 +1,7 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	SRR062634_1	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062634_1_fastqc.zip
+FastQC	all_sections	SRR062634_2	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062634_2_fastqc.zip
+FastQC	all_sections	SRR062635_1	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062635_1_fastqc.zip
+FastQC	all_sections	SRR062635_2	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062635_2_fastqc.zip
+FastQC	all_sections	SRR062637_1	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062637_1_fastqc.zip
+FastQC	all_sections	SRR062637_2	/Users/janetx/Desktop/Janet/Projects/WGS_pipeline/Report/SRR062637_2_fastqc.zip
