@@ -1,0 +1,10 @@
+{
+  "sample11": "Data/SRR062634_1.fastq",
+  "sample12": "Data/SRR062634_2.fastq",
+  "sample21": "Data/SRR062635_1.fastq",
+  "sample22": "Data/SRR062635_2.fastq",
+  "sample31": "Data/SRR062637_1.fastq",
+  "sample32": "Data/SRR062637_2.fastq",
+  "qc_dir": "report"
+}
+

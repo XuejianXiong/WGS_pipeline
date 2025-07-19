@@ -79,12 +79,23 @@ pip install -r requirements.txt
 
 ```
 WGS_pipeline/
-├── Data/                 # Raw FASTQ files
-├── Result/               # Output: trimmed files, BAMs, VCFs
-├── Report/               # FastQC and MultiQC reports
-├── Scripts/              # Wrapper scripts for each step
-├── env/                  # (Optional) virtual environment
-├── README.md             # Project documentation
+├── main.wdl                # calls sub-wdls
+├── WDL/
+│   ├── main_inputs.json      # input json
+│   ├── qc_reads.wdl          # fastqc, multiqc, fastp
+│   ├── alignment.wdl         # bwa mem + samtools
+├── Docker/                   # Dockfiles for based image and other modular images
+│   ├── Dockerfile.base         
+│   ├── Dockerfile.qc_reads     
+├── Data/                     # Raw FASTQ files and reference genome
+│   ├── chr22.fa*
+│   ├── sample_1.fastq
+│   ├── sample_2.fastq
+├── Result/                   # Output: trimmed files, BAMs, VCFs ...
+├── Report/                   # FastQC and MultiQC reports
+├── Scripts/                  # Wrapper scripts for each step
+├── env/                      # (Optional) virtual environment
+├── README.md                 # Project documentation
 ```
 
 ---

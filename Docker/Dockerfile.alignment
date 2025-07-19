@@ -1,0 +1,16 @@
+# Use the pre-built base image that includes Python, Java 17, samtools, etc.
+FROM wgs-base
+
+# Metadata: maintainer and description for this sub-image
+LABEL maintainer="xiongxuejian@gmail.com"
+LABEL description="Alignment sub-image with BWA for WGS pipeline"
+
+# Install BWA (Burrows-Wheeler Aligner) for short-read alignment
+# Note: samtools is already installed in the base image, so no need to reinstall
+RUN apt-get update && apt-get install -y \
+    bwa=0.7.17-6 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*  # Clean apt cache to reduce image size
+
+# Set the working directory inside the container for alignment tasks
+WORKDIR /data

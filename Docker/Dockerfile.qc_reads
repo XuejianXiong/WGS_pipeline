@@ -1,0 +1,17 @@
+# Use the pre-built base image that includes Python, Java 17, samtools, etc.
+FROM wgs-base
+
+# Metadata: maintainer and description for this sub-image
+LABEL maintainer="xiongxuejian@gmail.com"
+LABEL description="QC sub-image with FastQC and MultiQC for WGS pipeline"
+
+# Install FastQC and MultiQC
+RUN apt-get update && apt-get install -y \
+    fastqc \
+    python3-pip \
+    && pip3 install --no-cache-dir multiqc==1.13 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*  # Clean apt cache to reduce image size
+
+# Set the working directory inside the container for QC tasks
+WORKDIR /data
