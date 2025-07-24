@@ -171,5 +171,8 @@ Data/*.fastq
 Data/*.fa
 Data/*.fa.*
 Data/SRR*
+Data/*.vcf
+Data/*.vcf.idx
+Data/*.vcf.gz
 Result/*.fastq
 2025*/
