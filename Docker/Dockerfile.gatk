@@ -1,0 +1,32 @@
+# Start from the base image that already includes Python, Java, samtools, etc.
+FROM wgs-base
+
+# Metadata for documentation and tracking
+LABEL maintainer="xiongxuejian@gmail.com"
+LABEL description="Sub-image with GATK and R support for WGS pipeline"
+
+# Set the GATK version to install
+ENV GATK_VERSION=4.6.2.0
+
+# Install R (required for generating charts in some GATK tools)
+# r-base: provides R and Rscript
+RUN apt-get update && apt-get install -y \
+    r-base=4.1.2-1ubuntu2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*  # Clean cache to reduce image size
+
+# Download and install GATK from the official GitHub release
+# - Extracts to /opt/gatk
+# - Creates a symbolic link to make `gatk` accessible from anywhere
+RUN wget -q https://github.com/broadinstitute/gatk/releases/download/${GATK_VERSION}/gatk-${GATK_VERSION}.zip \
+    && unzip gatk-${GATK_VERSION}.zip \
+    && mv gatk-${GATK_VERSION} /opt/gatk \
+    && ln -sf /opt/gatk/gatk /usr/local/bin/gatk \
+    && rm gatk-${GATK_VERSION}.zip  # Clean up the zip file after installation
+
+# Create a 'python' symlink pointing to 'python3'
+# Some legacy tools/scripts expect 'python' to exist in the path
+RUN ln -sf /usr/bin/python3 /usr/bin/python
+
+# Set the default working directory inside the container
+WORKDIR /data

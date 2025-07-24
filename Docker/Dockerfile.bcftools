@@ -1,0 +1,20 @@
+# Use your existing base image as the starting point
+FROM wgs-base
+
+# Metadata about the image maintainer and description
+LABEL maintainer="xiongxuejian@gmail.com"
+LABEL description="Modular bcftools image for WGS pipeline using Ubuntu 22.04 package"
+
+# Avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install bcftools version 1.13 from Ubuntu 22.04 repositories
+#   - This version is stable and sufficient for most WGS variant filtering and manipulation tasks
+#   - Using the packaged version reduces complexity and build time
+RUN apt-get update && apt-get install -y \
+    bcftools=1.13-1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*  # Clean up apt cache to reduce image size
+
+# Set default working directory inside the container
+WORKDIR /data
