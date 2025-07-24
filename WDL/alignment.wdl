@@ -1,3 +1,5 @@
+version 1.0
+
 task alignment {
     input {
         File reference

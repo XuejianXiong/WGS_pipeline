@@ -1,0 +1,13 @@
+{
+  "fastq1": "Data/SRR062634_1.fastq",
+  "fastq2": "Data/SRR062634_2.fastq", 
+  "qc_dir": "report", 
+  "reference": "Data/chr22.fa",
+  "reference_fai": "Data/chr22.fa.fai",
+  "reference_dict": "Data/chr22.dict",
+  "trim_fastq1": "Result/SRR062634_1.trimmed.fastq",
+  "trim_fastq2": "Result/SRR062634_2.trimmed.fastq",
+  "known_variants": "Data/Homo_sapiens_assembly38.dbsnp138.vcf",
+  "bqsr_bam": "Results/SRR062634_bqsr.bam"
+}
+
