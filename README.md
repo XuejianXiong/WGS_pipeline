@@ -71,6 +71,9 @@ pip install -r requirements.txt
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
 ./Scripts/01_qc_reads.sh                          # Run Fastqc and Multiqc
 ./Scripts/02_trim_fastp.sh                        # Trim read files using fastp
+miniwdl run WDL/main.wdl --input WDL/main_inputs_1.json
+miniwdl run WDL/main.wdl --input WDL/main_inputs_2.json
+miniwdl run WDL/main.wdl --input WDL/main_inputs_3.json
 ```
 
 ---
@@ -79,22 +82,33 @@ pip install -r requirements.txt
 
 ```
 WGS_pipeline/
-├── main.wdl                # calls sub-wdls
-├── WDL/
-│   ├── main_inputs.json      # input json
-│   ├── qc_reads.wdl          # fastqc, multiqc, fastp
+├── requirements.txt          # required packages
+├── WDL/                      # WDL files 
+│   ├── main_inputs_1.json    # input json of SRR062634
+│   ├── main_inputs_2.json    # input json of SRR062635
+│   ├── main_inputs_3.json    # input json of SRR062637
+│   ├── main.wdl              # the main WDL file
+│   ├── qc_reads.wdl          # fastqc, multiqc
+│   ├── trim_fastq.wdl        # fastp
 │   ├── alignment.wdl         # bwa mem + samtools
-├── Docker/                   # Dockfiles for based image and other modular images
-│   ├── Dockerfile.base         
-│   ├── Dockerfile.qc_reads     
-├── Data/                     # Raw FASTQ files and reference genome
-│   ├── chr22.fa*
-│   ├── sample_1.fastq
-│   ├── sample_2.fastq
+│   ├── dedup.wdl             # gatk SortSam + gatk MarkDuplicates
+│   ├── qc_gatk.wdl           # gatk CollectAlignmentSummaryMetrics + gatk CollectInsertSizeMetrics
+│   ├── bqsr.wdl              # tabix + samtools + gatk BaseRecalibrator + gatk ApplyBQSR
+│   ├── variant_calling.wdl   # samtools + gatk HaplotypeCaller
+├── Docker/                   # Dockfiles for based image and other modular images                  
+│   ├── Dockerfile.base       # base image         
+│   ├── Dockerfile.qc_reads   # QC sub-image with FastQC and MultiQC
+│   ├── Dockerfile.fastp      # sub-image with fastp
+│   ├── Dockerfile.alignment  # alignment sub-image with BWA
+│   ├── Dockerfile.gatk       # sub-image with GATK and R
+│   ├── Dockerfile.bcftools   # sub-image with bcftools
+├── Data/                     # Raw FASTQ files, reference genome, and known variants
 ├── Result/                   # Output: trimmed files, BAMs, VCFs ...
 ├── Report/                   # FastQC and MultiQC reports
 ├── Scripts/                  # Wrapper scripts for each step
-├── env/                      # (Optional) virtual environment
+│   ├── 00_setup.sh           # download sample files, reference genome, and known variants
+│   ├── 01_qc_reads.sh        # QC analysis with FastQC and MultiQC
+│   ├── 02_trim_fastp.sh      # trim reads with fastp
 ├── README.md                 # Project documentation
 ```
 
