@@ -17,15 +17,14 @@ task variant_calling {
         gatk HaplotypeCaller \
         -R ${reference} \
         -I ${bqsr_bam} \
-        -O raw_variants.g.vcf.gz \
-        -ERC GVCF \
+        -O raw_variants.vcf \
         --native-pair-hmm-threads 6 \
         -L chr22
 
     }
 
     output {
-        File gvcf = "raw_variants.g.vcf.gz"
+        File vcf = "raw_variants.vcf"
     }
 
     runtime {

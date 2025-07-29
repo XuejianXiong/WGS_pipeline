@@ -7,6 +7,7 @@
   "reference_dict": "Data/chr22.dict",
   "trim_fastq1": "Result/SRR062634_1.trimmed.fastq",
   "trim_fastq2": "Result/SRR062634_2.trimmed.fastq",
-  "known_variants": "Data/Homo_sapiens_assembly38.dbsnp138.vcf"
+  "known_variants_snps": "Data/dbsnp_chr22.vcf.gz",
+  "known_variants_indels": "Data/mills_chr22.vcf.gz"
 }
 

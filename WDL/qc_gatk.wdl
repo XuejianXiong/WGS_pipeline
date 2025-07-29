@@ -6,11 +6,11 @@ task qc_gatk {
         File dedup_bam
     }
 
-    command <<<
+    command {
         gatk CollectAlignmentSummaryMetrics -R ${reference} -I ${dedup_bam} -O alignment_metrics.txt
 
         gatk CollectInsertSizeMetrics -I ${dedup_bam} -O insert_size_metrics.txt -H insert_size_histogram.pdf
-    >>>
+    }
 
     output {
         File align_txt = "alignment_metrics.txt"
@@ -19,8 +19,8 @@ task qc_gatk {
     }
 
     runtime {
-        cpu: 6
-        memory: "8G"
+        cpu: 3
+        memory: "4G"
         docker: "wgs-gatk"
     }
 }

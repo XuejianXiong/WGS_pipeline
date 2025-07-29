@@ -19,8 +19,8 @@ workflow main {
         File reference_dict
         File trim_fastq1
         File trim_fastq2 
-        File known_variants
-        File bqsr_bam             
+        File known_variants_snps
+        File known_variants_indels
     }
 
     #call QCReadWDL.qc_fastqc as my_fastqc {
@@ -37,6 +37,8 @@ workflow main {
     #            fastq2 = fastq2,
     #            threads = 4
     #}
+
+
 
     call AlignWDL.alignment as my_align {
         input:
@@ -63,31 +65,31 @@ workflow main {
             reference = reference,
             reference_fai = reference_fai,
             reference_dict = reference_dict,
-            known_variants = known_variants,
+            known_variants_snps = known_variants_snps,
+            known_variants_indels = known_variants_indels,
             dedup_bam = my_dedup.bam
             #dedup_bam = dedup_bam
     }
 
-    #call VarCallWDL.variant_calling as my_varcall {
-    #    input:
-    #        reference = reference,
-    #        reference_fai = reference_fai,
-    #        reference_dict = reference_dict,
-    #        #bqsr_bam = my_bqsr.bqsr_bam
-    #        bqsr_bam = bqsr_bam
-    #}    
+    call VarCallWDL.variant_calling as my_varcall {
+        input:
+            reference = reference,
+            reference_fai = reference_fai,
+            reference_dict = reference_dict,
+            bqsr_bam = my_bqsr.bqsr_bam
+            #bqsr_bam = bqsr_bam
+    }    
 
     output {
         #File fastqc1 = my_fastqc.fastqc_output1
         #File fastqc2 = my_fastqc.fastqc_output2
         #File trim_output = my_fastp.output_tar
-        
+
         File align_output = my_align.sam
         File dedup_report = my_dedup.dedup_report
         File qc_hist_pdf = my_qc.hist_pdf        
         File file_bqsr_bam = my_bqsr.bqsr_bam
         File file_bqsr_report = my_bqsr.bqsr_report
-
-        #File file_varcall_vcf = my_varcall.vcf
+        File file_varcall_vcf = my_varcall.gvcf
     }
 }

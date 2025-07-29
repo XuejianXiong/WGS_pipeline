@@ -5,16 +5,23 @@ task bqsr {
         File reference
         File reference_fai
         File reference_dict
-        File known_variants
+        File known_variants_snps
+        File known_variants_indels
         File dedup_bam
     }
 
-    command <<<
+    command {
 
-        # Compress and index known variants
-        bgzip -c ${known_variants} > known_sites.vcf.gz        
-        tabix -p vcf known_sites.vcf.gz
+        # Compress and index known variants if needed
+        # (it's normally finished in the setup step)
+        #bgzip -c ${known_variants_snps} > known_sites.vcf.gz        
+        #tabix -p vcf known_sites.vcf.gz
+
+        # Index known variants
+        tabix -p vcf ${known_variants_snps}
+        tabix -p vcf ${known_variants_indels}
         
+
         # Index the BAM file
         samtools index ${dedup_bam}        
 
@@ -22,7 +29,8 @@ task bqsr {
         gatk BaseRecalibrator \
             -I ${dedup_bam} \
             -R ${reference} \
-            --known-sites known_sites.vcf.gz \
+            --known-sites ${known_variants_snps} \
+            --known-sites ${known_variants_indels} \
             -O bqsr_data.table
 
         # Apply recalibration
@@ -31,7 +39,7 @@ task bqsr {
             -R ${reference} \
             --bqsr-recal-file bqsr_data.table \
             -O bqsr.bam
-    >>>
+    }
 
     output {
         File bqsr_bam = "bqsr.bam"
@@ -39,8 +47,8 @@ task bqsr {
     }
 
     runtime {
-        cpu: 6
-        memory: "8G"
+        cpu: 3
+        memory: "4G"
         docker: "wgs-gatk"
     }
 }
