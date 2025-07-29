@@ -177,4 +177,5 @@ Data/*.vcf.gz
 Result/*.fastq
 Result/*.sam
 Result/*.bam
+Result/*.gz
 2025*/
