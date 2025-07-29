@@ -175,4 +175,6 @@ Data/*.vcf
 Data/*.vcf.idx
 Data/*.vcf.gz
 Result/*.fastq
+Result/*.sam
+Result/*.bam
 2025*/
