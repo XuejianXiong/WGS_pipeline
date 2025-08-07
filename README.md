@@ -1,6 +1,6 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence, annotated variants, following widely accepted best practices. It integrates quality control, adapter trimming, alignment, variant calling, and annotation steps using well-established open-source tools.
+This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
 
 ---
 
@@ -35,7 +35,6 @@ The pipeline uses a combination of command-line tools and Python-based utilities
 - **SAMtools** – File conversion and sorting  
 - **GATK** – Duplicate marking, BQSR, and variant calling  
 - **bcftools** – Variant filtering and statistics  
-- **VEP** – Variant annotation (Ensembl Variant Effect Predictor)  
 - **IGV (optional)** – Manual visualization of alignments and variants  
 
 ---
@@ -71,9 +70,10 @@ pip install -r requirements.txt
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
 ./Scripts/01_qc_reads.sh                          # Run Fastqc and Multiqc
 ./Scripts/02_trim_fastp.sh                        # Trim read files using fastp
-miniwdl run WDL/main.wdl --input WDL/main_inputs_1.json
-miniwdl run WDL/main.wdl --input WDL/main_inputs_2.json
-miniwdl run WDL/main.wdl --input WDL/main_inputs_3.json
+miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_1.json
+miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_2.json
+miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_3.json
+miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants.json 
 ```
 
 ---
@@ -82,19 +82,24 @@ miniwdl run WDL/main.wdl --input WDL/main_inputs_3.json
 
 ```
 WGS_pipeline/
-├── requirements.txt          # required packages
-├── WDL/                      # WDL files 
-│   ├── main_inputs_1.json    # input json of SRR062634
-│   ├── main_inputs_2.json    # input json of SRR062635
-│   ├── main_inputs_3.json    # input json of SRR062637
-│   ├── main.wdl              # the main WDL file
-│   ├── qc_reads.wdl          # fastqc, multiqc
-│   ├── trim_fastq.wdl        # fastp
-│   ├── alignment.wdl         # bwa mem + samtools
-│   ├── dedup.wdl             # gatk SortSam + gatk MarkDuplicates
-│   ├── qc_gatk.wdl           # gatk CollectAlignmentSummaryMetrics + gatk CollectInsertSizeMetrics
-│   ├── bqsr.wdl              # tabix + samtools + gatk BaseRecalibrator + gatk ApplyBQSR
-│   ├── variant_calling.wdl   # samtools + gatk HaplotypeCaller
+├── requirements.txt                              # required packages
+├── WDL/                                          # WDL files 
+│   ├── main_inputs_1.json                        # input json of SRR062634
+│   ├── main_inputs_2.json                        # input json of SRR062635
+│   ├── main_inputs_3.json                        # input json of SRR062637
+│   ├── main_inputs_filter_variants.json          # input json of all trio samples for filtering variants
+│   ├── main_variant_calling.wdl                  # the main WDL file from qc_reads to variant_calling
+│   ├── main_filter_variants.wdl                  # the main WDL file of joint_genotyping, bcftools_merge, and qc_variant steps
+│   ├── qc_reads.wdl                    # fastqc, multiqc
+│   ├── trim_fastq.wdl                  # fastp
+│   ├── alignment.wdl                   # bwa mem + samtools
+│   ├── dedup.wdl                       # gatk SortSam + gatk MarkDuplicates
+│   ├── qc_gatk.wdl                     # gatk CollectAlignmentSummaryMetrics + gatk CollectInsertSizeMetrics
+│   ├── bqsr.wdl                        # tabix + samtools + gatk BaseRecalibrator + gatk ApplyBQSR
+│   ├── variant_calling.wdl             # samtools + gatk HaplotypeCaller
+│   ├── joint_genotyping.wdl            # gatk CombineGVCFs + gatk GenotypeGVCFs
+│   ├── bcftools_merge.wdl              # bcftools concat
+│   ├── qc_variant.wdl                  # bcftools + plot-vcfstats
 ├── Docker/                   # Dockfiles for based image and other modular images                  
 │   ├── Dockerfile.base       # base image         
 │   ├── Dockerfile.qc_reads   # QC sub-image with FastQC and MultiQC
@@ -124,9 +129,9 @@ After successful execution, the pipeline will generate:
 
 ✔️ Raw and filtered VCF files
 
-✔️ Annotated variant reports using VEP
+✔️ Reads quality reports in HTML and JSON via FastQC and MultiQC
 
-✔️ Quality reports in HTML and JSON via FastQC and MultiQC
+✔️ Variants quality reports in TXT and PDF via bcftools
 
 We can visually inspect BAMs and VCFs using IGV.
 

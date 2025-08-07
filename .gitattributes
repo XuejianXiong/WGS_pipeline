@@ -1,0 +1,2 @@
+# Force GitHub to classify .wdl files as Common Workflow Language (CWL)
+*.wdl linguist-language=Common Workflow Language
