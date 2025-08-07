@@ -35,7 +35,6 @@ The pipeline uses a combination of command-line tools and Python-based utilities
 - **SAMtools** – File conversion and sorting  
 - **GATK** – Duplicate marking, BQSR, and variant calling  
 - **bcftools** – Variant filtering and statistics  
-- **VEP** – Variant annotation (Ensembl Variant Effect Predictor)  
 - **IGV (optional)** – Manual visualization of alignments and variants  
 
 ---
