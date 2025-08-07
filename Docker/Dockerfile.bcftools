@@ -11,8 +11,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install bcftools version 1.13 from Ubuntu 22.04 repositories
 #   - This version is stable and sufficient for most WGS variant filtering and manipulation tasks
 #   - Using the packaged version reduces complexity and build time
+# Install matplotlib for plot-vcfstats
 RUN apt-get update && apt-get install -y \
     bcftools=1.13-1 \
+    zip \
+    texlive-latex-recommended \
+    texlive-fonts-recommended \
+    texlive-latex-extra \
+    && pip3 install matplotlib \    
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*  # Clean up apt cache to reduce image size
 

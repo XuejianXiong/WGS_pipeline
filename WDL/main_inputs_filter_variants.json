@@ -1,0 +1,11 @@
+{
+  "reference": "Data/chr22.fa",
+  "reference_fai": "Data/chr22.fa.fai",
+  "reference_dict": "Data/chr22.dict",  
+  "known_variants_snps": "Data/dbsnp_chr22.vcf.gz",
+  "known_variants_indels": "Data/mills_chr22.vcf.gz",
+  "gvcf_1": "Result/SRR062634_raw_variants.g.vcf.gz",
+  "gvcf_2": "Result/SRR062635_raw_variants.g.vcf.gz",
+  "gvcf_3": "Result/SRR062637_raw_variants.g.vcf.gz"
+}
+
