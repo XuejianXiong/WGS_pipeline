@@ -1,6 +1,6 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence, annotated variants, following widely accepted best practices. It integrates quality control, adapter trimming, alignment, variant calling, and annotation steps using well-established open-source tools.
+This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
 
 ---
 
