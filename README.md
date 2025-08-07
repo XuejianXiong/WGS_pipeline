@@ -90,7 +90,7 @@ WGS_pipeline/
 │   ├── main_inputs_filter_variants.json          # input json of all trio samples for filtering variants
 │   ├── main_variant_calling.wdl                  # the main WDL file from qc_reads to variant_calling
 │   ├── main_filter_variants.wdl                  # the main WDL file of joint_genotyping, bcftools_merge, and qc_variant steps
-│   ├── qc_reads.wdl                    # fastqc, multiqc
+│   ├── qc_reads.wdl                    # fastqc + multiqc
 │   ├── trim_fastq.wdl                  # fastp
 │   ├── alignment.wdl                   # bwa mem + samtools
 │   ├── dedup.wdl                       # gatk SortSam + gatk MarkDuplicates
@@ -98,6 +98,8 @@ WGS_pipeline/
 │   ├── bqsr.wdl                        # tabix + samtools + gatk BaseRecalibrator + gatk ApplyBQSR
 │   ├── variant_calling.wdl             # samtools + gatk HaplotypeCaller
 │   ├── joint_genotyping.wdl            # gatk CombineGVCFs + gatk GenotypeGVCFs
+│   ├── select_snps.wdl                 # gatk SelectVariants + gatk VariantFiltration
+│   ├── select_indels.wdl               # gatk SelectVariants + gatk VariantFiltration
 │   ├── bcftools_merge.wdl              # bcftools concat
 │   ├── qc_variant.wdl                  # bcftools + plot-vcfstats
 ├── Docker/                   # Dockfiles for based image and other modular images                  
