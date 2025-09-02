@@ -1,13 +1,13 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-[![Version](https://img.shields.io/badge/version-v1.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
+[![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
 [![Python](https://img.shields.io/badge/python-3.13+-brightgreen.svg)](https://www.python.org/)  
 [![Docker](https://img.shields.io/badge/docker-latest-blue.svg)](https://www.docker.com/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
 
 ## 📌 Version History
 
-- **[v1.0.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0)** – Initial WGS pipeline release using WDL + Docker (**current main branch**)  
+- **[v1.0.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)** – Initial WGS pipeline release using WDL + Docker (**current main branch**)  
 
 ---
 
