@@ -1,10 +1,11 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
 [![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
-[![Python](https://img.shields.io/badge/python-3.13+-brightgreen.svg)](https://www.python.org/)  
-[![Docker](https://img.shields.io/badge/docker-latest-blue.svg)](https://www.docker.com/)
-[![GATK](https://img.shields.io/badge/GATK-4.6.2.0-blue.svg)](https://gatk.broadinstitute.org/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
+![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)
+![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)
+![BWA-MEM](https://img.shields.io/badge/BWA--MEM-Aligner-lightgrey)
+![FastQC](https://img.shields.io/badge/FastQC-QC%20Tool-yellow)
 
 ## 📌 Version History
 
