@@ -1,11 +1,12 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
 [![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
-![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)
-![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)
-![BWA-MEM](https://img.shields.io/badge/BWA--MEM-Aligner-lightgrey)
-![FastQC](https://img.shields.io/badge/FastQC-QC%20Tool-yellow)
+[![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)](https://openwdl.org/)  
+[![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)](https://www.docker.com/)  
+[![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)](https://gatk.broadinstitute.org/)  
+[![BWA-MEM](https://img.shields.io/badge/BWA--MEM-Aligner-lightgrey)](http://bio-bwa.sourceforge.net/)  
+[![FastQC](https://img.shields.io/badge/FastQC-QC%20Tool-yellow)](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
 
 ## 📌 Version History
 
