@@ -1,8 +1,21 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
+[![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
+[![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)](https://openwdl.org/)  
+[![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)](https://www.docker.com/)  
+[![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)](https://gatk.broadinstitute.org/)  
+[![BWA-MEM](https://img.shields.io/badge/BWA--MEM-Aligner-lightgrey)](http://bio-bwa.sourceforge.net/)  
+[![FastQC](https://img.shields.io/badge/FastQC-QC%20Tool-yellow)](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+
+## 📌 Version History
+
+- **[v1.0.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)** – Initial WGS pipeline release using WDL + Docker (**current main branch**)  
 
 ---
+
+This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
+
 
 ## 📁 Dataset
 
