@@ -2,7 +2,8 @@
 
 [![Version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)  
 [![Python](https://img.shields.io/badge/python-3.13+-brightgreen.svg)](https://www.python.org/)  
-[![Docker](https://img.shields.io/badge/docker-latest-blue.svg)](https://www.docker.com/)  
+[![Docker](https://img.shields.io/badge/docker-latest-blue.svg)](https://www.docker.com/)
+[![GATK](https://img.shields.io/badge/GATK-4.6.2.0-blue.svg)](https://gatk.broadinstitute.org/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
 
 ## 📌 Version History
