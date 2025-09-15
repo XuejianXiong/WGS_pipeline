@@ -1,5 +1,6 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
+[![Nextflow](https://img.shields.io/badge/Nextflow-Workflow-orange?logo=nextflow&logoColor=white)](https://www.nextflow.io/)
 [![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)](https://openwdl.org/)  
 [![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)](https://www.docker.com/)  
 [![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)](https://gatk.broadinstitute.org/)  
