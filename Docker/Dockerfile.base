@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     python3=3.10.6-1~22.04.1 \
-    python3-pip=22.0.2+dfsg-1ubuntu0.6 \
+    python3-pip=22.0.2+dfsg-1ubuntu0.7 \
     samtools=1.13-4 \
-    openjdk-17-jre-headless=17.0.15+6~us1-0ubuntu1~22.04 \
+    openjdk-17-jre-headless=17.0.16+8~us1-0ubuntu1~22.04.1 \
     build-essential=12.9ubuntu3 \
     zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 \
     libbz2-dev=1.0.8-5build1 \
