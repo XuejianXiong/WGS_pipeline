@@ -184,6 +184,8 @@ Result/*
 
 nextflow/*_v*.nf
 
+nextflow.config.v*
+
 2025*/
 work/
 
