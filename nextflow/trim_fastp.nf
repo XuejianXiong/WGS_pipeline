@@ -8,7 +8,7 @@ process TRIM_FASTQ {
     tag "$sample_id"
     cpus 4
     memory '8 GB'
-    // container 'wgs-fastp'   // <-- use your existing container
+    // container 'wgs-fastp'
 
     input:
     tuple val(sample_id), path(fastq1), path(fastq2)

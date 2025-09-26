@@ -8,7 +8,7 @@ process FASTQC {
     tag "$sample_id"
     cpus 2
     memory '4 GB'
-    // container 'qc-reads:latest'
+    // container 'wgs-qc-reads:latest'
     maxForks 2
 
     input:
@@ -38,7 +38,7 @@ process MULTIQC {
     tag "multiqc"
     cpus 1
     memory '2 GB'
-    // container 'qc-reads:latest'
+    // container 'wgs-qc-reads:latest'
 
     input:
     path fastqc_files
