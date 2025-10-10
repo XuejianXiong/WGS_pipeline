@@ -19,10 +19,18 @@ process BWA_ALIGN {
 
     script:
     """
-    bwa index $reference
-    bwa mem -t ${task.cpus} $reference $fastq1 $fastq2 \\
-        | samtools view -Sb - \\
+    # Index reference (only runs if not already present)
+    if [ ! -f "${reference}.bwt" ]; then
+        bwa index $reference
+    fi
+
+    # Align with read group header for GATK compatibility
+    bwa mem -t ${task.cpus} -R "@RG\\tID:${sample_id}\\tSM:${sample_id}\\tPL:ILLUMINA" \
+        $reference $fastq1 $fastq2 \
+        | samtools view -Sb - \
         | samtools sort -o ${sample_id}.sorted.bam
+
+    # Index the BAM file
     samtools index ${sample_id}.sorted.bam
     """
 }

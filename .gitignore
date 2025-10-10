@@ -183,9 +183,8 @@ Result/*
 #!Report/.gitkeep
 
 nextflow/*_v*.nf
-
 nextflow.config.v*
+!nextflow/*_va*.nf
 
 2025*/
 work/
-
