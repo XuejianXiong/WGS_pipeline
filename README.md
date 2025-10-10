@@ -94,7 +94,9 @@ miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants
 Or run with Nextflow:
 
 ```bash
-run nextflow/main.nf -params-file nextflow/input.json -profile docker -c .nextflow.config
+./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
+nextflow config                                   # Configure nextflow
+nextflow run nextflow/main.nf -params-file nextflow/input.json -profile docker -c nextflow.config
 ```
 
 ---
