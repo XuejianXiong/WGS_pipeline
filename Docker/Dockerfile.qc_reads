@@ -1,5 +1,5 @@
 # Use the pre-built base image that includes Python, Java 17, samtools, etc.
-FROM wgs-base
+FROM wgs-base:latest
 
 # Metadata: maintainer and description for this sub-image
 LABEL maintainer="xiongxuejian@gmail.com"

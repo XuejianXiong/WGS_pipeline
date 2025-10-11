@@ -1,8 +1,23 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
-This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
+[![Nextflow](https://img.shields.io/badge/Nextflow-Workflow-orange?logo=nextflow&logoColor=white)](https://www.nextflow.io/)
+[![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)](https://openwdl.org/)  
+[![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)](https://www.docker.com/)  
+[![GATK](https://img.shields.io/badge/GATK-Genome%20Analysis-green?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFElEQVQYV2NkYGD4z0AEMIIBwzAAANcYAR9gCqbRAAAAAElFTkSuQmCC)](https://gatk.broadinstitute.org/)  
+[![BWA-MEM](https://img.shields.io/badge/BWA--MEM-Aligner-lightgrey)](http://bio-bwa.sourceforge.net/)  
+[![FastQC](https://img.shields.io/badge/FastQC-QC%20Tool-yellow)](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+
+## 📌 Version History
+
+- **[v2.0]** – Refactored WGS pipeline using Nextflow DSL2 + Docker (**current main branch**)  
+- **[v1.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)** – Initial release: WGS pipeline using WDL + Docker
 
 ---
+
+This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
+
+The workflow can be executed using either WDL or Nextflow, making it portable across local machines, HPC, or cloud environments.
 
 ## 📁 Dataset
 
@@ -54,7 +69,7 @@ cd WGS_pipeline
 brew install fastqc fastp bwa samtools bcftools
 ```
 
-- Manually install GATK and VEP
+- Manually install GATK and VEP from Broad and Ensembl.
 
 - Install python packages:
 ```bash
@@ -64,7 +79,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-- Run each step:
+- Run with WDL:
 
 ```bash
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
@@ -76,46 +91,29 @@ miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_3.json
 miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants.json 
 ```
 
+Or run with Nextflow:
+
+```bash
+./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
+nextflow config                                   # Configure nextflow
+nextflow run nextflow/main.nf -params-file nextflow/input.json -profile docker -c nextflow.config
+```
+
 ---
 
 ## 📂 Folder Structure
 
 ```
 WGS_pipeline/
-├── requirements.txt                              # required packages
-├── WDL/                                          # WDL files 
-│   ├── main_inputs_1.json                        # input json of SRR062634
-│   ├── main_inputs_2.json                        # input json of SRR062635
-│   ├── main_inputs_3.json                        # input json of SRR062637
-│   ├── main_inputs_filter_variants.json          # input json of all trio samples for filtering variants
-│   ├── main_variant_calling.wdl                  # the main WDL file from qc_reads to variant_calling
-│   ├── main_filter_variants.wdl                  # the main WDL file of joint_genotyping, bcftools_merge, and qc_variant steps
-│   ├── qc_reads.wdl                    # fastqc + multiqc
-│   ├── trim_fastq.wdl                  # fastp
-│   ├── alignment.wdl                   # bwa mem + samtools
-│   ├── dedup.wdl                       # gatk SortSam + gatk MarkDuplicates
-│   ├── qc_gatk.wdl                     # gatk CollectAlignmentSummaryMetrics + gatk CollectInsertSizeMetrics
-│   ├── bqsr.wdl                        # tabix + samtools + gatk BaseRecalibrator + gatk ApplyBQSR
-│   ├── variant_calling.wdl             # samtools + gatk HaplotypeCaller
-│   ├── joint_genotyping.wdl            # gatk CombineGVCFs + gatk GenotypeGVCFs
-│   ├── select_snps.wdl                 # gatk SelectVariants + gatk VariantFiltration
-│   ├── select_indels.wdl               # gatk SelectVariants + gatk VariantFiltration
-│   ├── bcftools_merge.wdl              # bcftools concat
-│   ├── qc_variant.wdl                  # bcftools + plot-vcfstats
+├── requirements.txt          # Python dependencies
+├── .nextflow.config          # Nextflow configuration
+├── nextflow/                 # Nextflow DSL2 modules and workflows
+├── WDL/                      # WDL workflows and input files 
 ├── Docker/                   # Dockfiles for based image and other modular images                  
-│   ├── Dockerfile.base       # base image         
-│   ├── Dockerfile.qc_reads   # QC sub-image with FastQC and MultiQC
-│   ├── Dockerfile.fastp      # sub-image with fastp
-│   ├── Dockerfile.alignment  # alignment sub-image with BWA
-│   ├── Dockerfile.gatk       # sub-image with GATK and R
-│   ├── Dockerfile.bcftools   # sub-image with bcftools
 ├── Data/                     # Raw FASTQ files, reference genome, and known variants
-├── Result/                   # Output: trimmed files, BAMs, VCFs ...
+├── Result/                   # Pipeline outputs (FASTQ, BAM, VCF…)
 ├── Report/                   # FastQC and MultiQC reports
 ├── Scripts/                  # Wrapper scripts for each step
-│   ├── 00_setup.sh           # download sample files, reference genome, and known variants
-│   ├── 01_qc_reads.sh        # QC analysis with FastQC and MultiQC
-│   ├── 02_trim_fastp.sh      # trim reads with fastp
 ├── README.md                 # Project documentation
 ```
 

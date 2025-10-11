@@ -1,5 +1,5 @@
 # Use your existing base image as the starting point
-FROM wgs-base
+FROM wgs-base:latest
 
 # Metadata about the image maintainer and description
 LABEL maintainer="xiongxuejian@gmail.com"

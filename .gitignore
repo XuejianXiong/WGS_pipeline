@@ -164,18 +164,27 @@ cython_debug/
 # INI
 .config
 
+# Nextflow
+.nextflow.log*
+.nextflow/
+
 # Directories
 .vscode
 _LAST
-Data/*.fastq
-Data/*.fa
-Data/*.fa.*
-Data/SRR*
-Data/*.vcf
-Data/*.vcf.idx
-Data/*.vcf.gz
-Result/*.fastq
-Result/*.sam
-Result/*.bam
-Result/*.gz
+WGSpipeline.md
+
+Data/*
+!Data/.gitkeep
+
+Result/*
+!Result/.gitkeep
+
+#Report/*
+#!Report/.gitkeep
+
+nextflow/*_v*.nf
+nextflow.config.v*
+!nextflow/*_va*.nf
+
 2025*/
+work/

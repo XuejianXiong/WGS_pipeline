@@ -412,5 +412,5 @@
 		"overrepresented_sequences": {
 		}
 	},
-	"command": "fastp -i Data/SRR062634_1.fastq -I Data/SRR062634_2.fastq -o Result/SRR062634_1.trimmed.fastq -O Result/SRR062634_2.trimmed.fastq --detect_adapter_for_pe --thread 4 --html Result/SRR062634_fastp_report.html --json Result/SRR062634_fastp_report.json --report_title fastp report for SRR062634 "
+	"command": "fastp -i SRR062634_1.fastq -I SRR062634_2.fastq -o SRR062634_1.trimmed.fastq -O SRR062634_2.trimmed.fastq --detect_adapter_for_pe --thread 4 --html SRR062634_fastp_report.html --json SRR062634_fastp_report.json --report_title fastp report for SRR062634 "
 }
