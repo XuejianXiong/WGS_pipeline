@@ -1,5 +1,5 @@
 # Start from the base image that already includes Python, Java, samtools, etc.
-FROM wgs-base
+FROM wgs-base:latest
 
 # Metadata for documentation and tracking
 LABEL maintainer="xiongxuejian@gmail.com"
