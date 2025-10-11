@@ -12,7 +12,7 @@
 ## 📌 Version History
 
 - **[v2.0](https://github.com/XuejianXiong/WGS_pipeline)** – Refactored WGS pipeline using **Nextflow DSL2** with full **Docker** support (**current main branch**)
-- **[v1.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0)** – Initial release using **WDL + Docker**
+- **[v1.0](https://github.com/XuejianXiong/WGS_pipeline/tree/v1.0)** – Initial release using **WDL + Docker**
 
 ---
 
