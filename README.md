@@ -1,5 +1,6 @@
 # 🧬 WGS_pipeline: A Whole Genome Sequencing Analysis Pipeline
 
+[![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/XuejianXiong/WGS_pipeline/releases)
 [![Nextflow](https://img.shields.io/badge/Nextflow-Workflow-orange?logo=nextflow&logoColor=white)](https://www.nextflow.io/)
 [![WDL](https://img.shields.io/badge/WDL-Workflow-blue?logo=workflow&logoColor=white)](https://openwdl.org/)  
 [![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker&logoColor=white)](https://www.docker.com/)  
@@ -10,14 +11,19 @@
 
 ## 📌 Version History
 
-- **[v2.0]** – Refactored WGS pipeline using Nextflow DSL2 + Docker (**current main branch**)  
-- **[v1.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0.0)** – Initial release: WGS pipeline using WDL + Docker
+- **[v2.0](https://github.com/XuejianXiong/WGS_pipeline)** – Refactored WGS pipeline using **Nextflow DSL2** with full **Docker** support (**current main branch**)
+- **[v1.0](https://github.com/XuejianXiong/WGS_pipeline/releases/tag/v1.0)** – Initial release using **WDL + Docker**
 
 ---
 
-This repository provides a modular and reproducible pipeline for analyzing short-read Whole Genome Sequencing (WGS) data. The pipeline processes raw FASTQ files to high-confidence variants, following widely accepted best practices. It integrates reads quality control, adapter trimming, alignment, variant calling, and variant quality control steps using well-established open-source tools.
+## 🧠 Overview
 
-The workflow can be executed using either WDL or Nextflow, making it portable across local machines, HPC, or cloud environments.
+**WGS_pipeline** provides a modular, scalable, and fully reproducible workflow for analyzing short-read Whole Genome Sequencing (WGS) data.  
+It follows GATK Best Practices to process raw FASTQ reads into high-confidence small variants (SNPs and INDELs).
+
+The pipeline integrates widely used open-source bioinformatics tools and supports execution via either **WDL** or **Nextflow**, enabling flexible deployment on local machines, HPC clusters, or cloud environments.
+
+---
 
 ## 📁 Dataset
 
@@ -29,49 +35,54 @@ The 1000 Genomes Project. *A global reference for human genetic variation*. **Na
 - [SRR062635](https://www.ncbi.nlm.nih.gov/sra/SRR062635)
 - [SRR062637](https://www.ncbi.nlm.nih.gov/sra/SRR062637)
 
-**Note:**
-- Sample population: Yoruba in Ibadan, Nigeria (YRI)
-- Platform: Illumina Genome Analyzer II
-- Technology: Paired-end short-read whole-genome sequencing (WGS)
-- Objective: Benchmark small variant calling pipeline using high-quality public data
-- Reference Genome: A partial reference genome is used to minimize computational load during development and testing. Specifically, chromosome 22 from the hg38 assembly is downloaded from the UCSC Genome Browser.
+**Metadata:**
+- **Population:** Yoruba in Ibadan, Nigeria (YRI)  
+- **Platform:** Illumina Genome Analyzer II  
+- **Technology:** Paired-end short-read WGS  
+- **Objective:** Benchmark a small variant calling pipeline using open public data  
+- **Reference Genome:** Partial hg38 (chromosome 22) from the UCSC Genome Browser — used to reduce computational load for development and testing
 
 ---
 
 ## 🧰 Tech Stack
 
-The pipeline uses a combination of command-line tools and Python-based utilities within a virtual environment:
+**Core Tools and Languages:**
 
-- **Python**: 3.13.3 (via `venv`)
-- **fastqc**: 0.12.1 — for read quality control
-- **multiqc**: 1.30 — to aggregate and summarize QC reports
-- **fastp**: 1.0.1 — for read trimming and filtering
-- **BWA-MEM** – Alignment to the reference genome  
-- **SAMtools** – File conversion and sorting  
-- **GATK** – Duplicate marking, BQSR, and variant calling  
-- **bcftools** – Variant filtering and statistics  
-- **IGV (optional)** – Manual visualization of alignments and variants  
+| Component | Version / Description |
+|------------|------------------------|
+| **Python** | 3.13.3 (via `venv`) |
+| **fastqc** | 0.12.1 — Read quality control |
+| **multiqc** | 1.30 — Aggregate QC reports |
+| **fastp** | 1.0.1 — Adapter trimming and quality filtering |
+| **BWA-MEM** | Short-read alignment |
+| **SAMtools** | BAM file processing and sorting |
+| **GATK** | Duplicate marking, BQSR, variant calling, and filtering |
+| **bcftools** | Variant filtering, merging, and statistics |
+| **IGV (optional)** | Visualization of BAMs and VCFs |
 
 ---
 
 ## 🚀 How to Run the Pipelines
 
-1. **Clone the repository**
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/XuejianXiong/WGS_pipeline.git
 cd WGS_pipeline
 ```
 
-2. **Install dependencies**   
+### 2. Install Dependencies
 
-- Install bioinformatic tools:
+- Bioinformatics tools:
+
 ```bash
 brew install fastqc fastp bwa samtools bcftools
 ```
 
-- Manually install GATK and VEP from Broad and Ensembl.
+- Install GATK and VEP manually from the Broad Institute and Ensembl, respectively..
 
 - Install python packages:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -79,24 +90,28 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-- Run with WDL:
+### 3. Run with WDL:
 
 ```bash
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
 ./Scripts/01_qc_reads.sh                          # Run Fastqc and Multiqc
 ./Scripts/02_trim_fastp.sh                        # Trim read files using fastp
+
 miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_1.json
 miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_2.json
 miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_3.json
 miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants.json 
 ```
 
-Or run with Nextflow:
+### 4. Run with Nextflow:
 
 ```bash
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
-nextflow config                                   # Configure nextflow
-nextflow run nextflow/main.nf -params-file nextflow/input.json -profile docker -c nextflow.config
+nextflow config                                   # Inspect configuration
+nextflow run nextflow/main.nf \
+          -params-file nextflow/input.json \
+          -profile docker \
+          -c nextflow.config
 ```
 
 ---
@@ -109,11 +124,11 @@ WGS_pipeline/
 ├── .nextflow.config          # Nextflow configuration
 ├── nextflow/                 # Nextflow DSL2 modules and workflows
 ├── WDL/                      # WDL workflows and input files 
-├── Docker/                   # Dockfiles for based image and other modular images                  
+├── Docker/                   # Dockfiles for modular images                 
 ├── Data/                     # Raw FASTQ files, reference genome, and known variants
 ├── Result/                   # Pipeline outputs (FASTQ, BAM, VCF…)
-├── Report/                   # FastQC and MultiQC reports
-├── Scripts/                  # Wrapper scripts for each step
+├── Report/                   # QC and MultiQC reports
+├── Scripts/                  # Wrapper scripts for pipeline steps
 ├── README.md                 # Project documentation
 ```
 
@@ -123,15 +138,15 @@ WGS_pipeline/
 
 After successful execution, the pipeline will generate:
 
-✔️ Trimmed FASTQ files in Result/
+✔️ Trimmed FASTQ files
 
 ✔️ High-quality aligned BAM files
 
-✔️ Raw and filtered VCF files
+✔️ Raw and filtered VCFs (SNPs and INDELs)
 
-✔️ Reads quality reports in HTML and JSON via FastQC and MultiQC
+✔️ Reads QC reports in HTML and JSON from FastQC and MultiQC
 
-✔️ Variants quality reports in TXT and PDF via bcftools
+✔️ Variants QC statistics and plots from bcftools
 
 We can visually inspect BAMs and VCFs using IGV.
 
@@ -140,5 +155,4 @@ We can visually inspect BAMs and VCFs using IGV.
 ## 📘 License
 
 MIT License – feel free to use, adapt, and share.
-
 
