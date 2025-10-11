@@ -141,10 +141,4 @@ We can visually inspect BAMs and VCFs using IGV.
 
 MIT License – feel free to use, adapt, and share.
 
----
-
-## Development
-
-The Nextflow DSL2 + Docker version of this pipeline is under active development  
-on the [`feature/nextflow`](https://github.com/your-repo/tree/feature/nextflow) branch.  
 
