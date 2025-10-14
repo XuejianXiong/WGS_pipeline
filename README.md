@@ -71,6 +71,12 @@ git clone https://github.com/XuejianXiong/WGS_pipeline.git
 cd WGS_pipeline
 ```
 
+### 2. Build or Pull Docker Images
+
+The pipeline relies on modular Docker containers (e.g., base, qc, bwa, gatk, etc.) for reproducibility and consistent environments.
+You can either build them locally or pull pre-built ones if available.
+
+
 ### 2. Install Dependencies
 
 - Bioinformatics tools:
