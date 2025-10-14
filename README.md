@@ -71,13 +71,16 @@ git clone https://github.com/XuejianXiong/WGS_pipeline.git
 cd WGS_pipeline
 ```
 
-### 2. Build or Pull Docker Images
+### 2. Build Docker Images
 
 The pipeline relies on modular Docker containers (e.g., base, qc, bwa, gatk, etc.) for reproducibility and consistent environments.
 You can either build them locally or pull pre-built ones if available.
 
+```bash
+./Scripts/build_all.sh
+```
 
-### 2. Install Dependencies
+### 3. Install Dependencies for Local Testing (Optional)
 
 - Bioinformatics tools:
 
@@ -87,7 +90,7 @@ brew install fastqc fastp bwa samtools bcftools
 
 - Install GATK and VEP manually from the Broad Institute and Ensembl, respectively..
 
-- Install python packages:
+- Install python environment and packages:
 
 ```bash
 python3 -m venv .venv
@@ -96,7 +99,19 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 3. Run with WDL:
+### 4. Run with Nextflow + Docker:
+
+```bash
+./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
+
+nextflow config                                   # Inspect configuration
+nextflow run nextflow/main.nf \
+          -params-file nextflow/input.json \
+          -profile docker \
+          -c nextflow.config
+```
+
+### 5. Run with WDL + Docker:
 
 ```bash
 ./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
@@ -107,17 +122,6 @@ miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_1.json
 miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_2.json
 miniwdl run WDL/main_variant_calling.wdl --input WDL/main_inputs_3.json
 miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants.json 
-```
-
-### 4. Run with Nextflow:
-
-```bash
-./Scripts/00_setup.sh                             # Download and extract read files (.fastq)
-nextflow config                                   # Inspect configuration
-nextflow run nextflow/main.nf \
-          -params-file nextflow/input.json \
-          -profile docker \
-          -c nextflow.config
 ```
 
 ---
