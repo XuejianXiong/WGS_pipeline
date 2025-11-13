@@ -1,1 +1,5 @@
 multiqc==1.30
+
+pytest
+pytest-subprocess
+pytest-timeout
