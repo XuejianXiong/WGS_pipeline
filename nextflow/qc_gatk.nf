@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process QC_GATK {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk' 
     tag "$sample_id"
     cpus 3
@@ -16,7 +17,6 @@ process QC_GATK {
           path("${sample_id}.insert_size_metrics.txt"),
           path("${sample_id}.insert_size_histogram.pdf")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

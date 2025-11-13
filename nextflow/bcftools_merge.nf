@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process BCFTOOLS_MERGE {
+    publishDir params.outdir, mode: 'copy'
     label 'bcftools'
     tag "$sample_id"
     cpus 6
@@ -13,7 +14,6 @@ process BCFTOOLS_MERGE {
     output:
     tuple val(sample_id), path("merged_variants.vcf")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

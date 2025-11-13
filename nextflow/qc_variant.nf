@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process QC_VARIANT {
+    publishDir params.outdir, mode: 'copy'
     label 'bcftools'
     tag "${sample_id}"
     cpus 6
@@ -15,7 +16,6 @@ process QC_VARIANT {
           path("variant_stats.txt"),
           path("qc_plots.zip")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """
