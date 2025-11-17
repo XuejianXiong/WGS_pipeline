@@ -182,6 +182,9 @@ Result/*
 #Report/*
 #!Report/.gitkeep
 
+tests/Data/*
+!tests/Data/.gitkeep
+
 nextflow/*_v*.nf
 nextflow.config.v*
 !nextflow/*_va*.nf

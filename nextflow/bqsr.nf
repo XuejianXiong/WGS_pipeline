@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process BQSR {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk'
     tag "$sample_id"
     cpus 3
@@ -22,7 +23,6 @@ process BQSR {
           path("${sample_id}.bqsr.bam"),
           path("${sample_id}.bqsr_data.table")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

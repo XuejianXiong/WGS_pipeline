@@ -4,6 +4,7 @@ nextflow.enable.dsl=2
 // FASTP trimming process
 // -------------------------
 process TRIM_FASTQ {
+    publishDir "${params.outdir}", mode: 'copy'
     label 'trim'
     tag "$sample_id"
     cpus 4
@@ -21,7 +22,6 @@ process TRIM_FASTQ {
           path("${sample_id}_fastp_report.html"),
           path("${sample_id}_fastp_report.json")
 
-    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """

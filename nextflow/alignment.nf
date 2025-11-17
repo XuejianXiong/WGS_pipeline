@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process BWA_ALIGN {
+    publishDir params.outdir, mode: 'copy'
     label 'align'
     tag "$sample_id"
     cpus 4
@@ -14,8 +15,6 @@ process BWA_ALIGN {
     output:
     tuple val(sample_id), path("${sample_id}.sorted.bam"), path("${sample_id}.sorted.bam.bai")
 
-    // ✅ keep publishDir exactly as before
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

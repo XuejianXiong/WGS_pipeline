@@ -4,6 +4,7 @@ nextflow.enable.dsl=2
 // FASTQC process
 // -------------------------
 process FASTQC {
+    publishDir "${params.outdir}", mode: 'copy'
     label 'qc'
     tag "$sample_id"
     cpus 2
@@ -21,8 +22,6 @@ process FASTQC {
           path("${fastq2.baseName}_fastqc.zip"),
           path("${fastq2.baseName}_fastqc.html")
 
-    publishDir "${params.outdir}", mode: 'copy'
-
     script:
     """
     fastqc -o . $fastq1 $fastq2
@@ -34,6 +33,7 @@ process FASTQC {
 // MULTIQC process
 // -------------------------
 process MULTIQC {
+    publishDir "${params.outdir}", mode: 'copy'
     label 'qc'
     tag "multiqc"
     cpus 1
@@ -47,7 +47,6 @@ process MULTIQC {
     path "multiqc_report.html"
     path "multiqc_data"
 
-    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """

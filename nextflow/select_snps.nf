@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process SELECT_SNPS {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk'
     tag "$sample_id"
     cpus 6
@@ -18,7 +19,6 @@ process SELECT_SNPS {
     tuple val(sample_id), path("filtered_snps.vcf.gz")
 
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

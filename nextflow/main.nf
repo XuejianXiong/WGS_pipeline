@@ -28,18 +28,18 @@ params.known_variants_indels = params.known_variants_indels
 
 
 // ------------------------------------------------------------
-// Build channel of input tuples
-//   -> each tuple = (sample_id, fastq1, fastq2, reference)
-// ------------------------------------------------------------
-samples_ch = Channel.fromList(params.samples.entrySet() as List)
-    .map { entry -> 
-        tuple(entry.key, file(entry.value[0]), file(entry.value[1]), file(params.reference))
-    }
-
-// ------------------------------------------------------------
 // Main workflow definition
 // ------------------------------------------------------------
 workflow {
+
+    // ------------------------------------------------------------
+    // Build channel of input tuples
+    //   -> each tuple = (sample_id, fastq1, fastq2, reference)
+    // ------------------------------------------------------------
+    samples_ch = Channel.fromList(params.samples.entrySet() as List)
+        .map { entry -> 
+            tuple(entry.key, file(entry.value[0]), file(entry.value[1]), file(params.reference))
+        }
 
     // --------------------------------------------------------
     // FASTQC: quality check raw FASTQs

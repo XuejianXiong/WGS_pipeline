@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process JOINT_GENOTYPING {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk'
     tag "joint_genotyping"
     cpus 6
@@ -13,7 +14,6 @@ process JOINT_GENOTYPING {
     output:
     tuple val('joint'), path("raw_variants.vcf.gz")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process DEDUP {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk'
     tag "$sample_id"
     cpus 4
@@ -13,8 +14,6 @@ process DEDUP {
     output:
     tuple val(sample_id), path("${sample_id}.dedup.bam"), path("${sample_id}.dedup.metrics.txt")
 
-
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """

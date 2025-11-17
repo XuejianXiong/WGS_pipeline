@@ -1,6 +1,7 @@
 nextflow.enable.dsl=2
 
 process VARIANT_CALLING {
+    publishDir params.outdir, mode: 'copy'
     label 'gatk'
     tag "$sample_id"
     cpus 6
@@ -14,7 +15,6 @@ process VARIANT_CALLING {
     output:
     tuple val(sample_id), path("${sample_id}.raw_variants.g.vcf.gz")
 
-    publishDir params.outdir, mode: 'copy'
 
     script:
     """
