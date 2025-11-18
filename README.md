@@ -132,6 +132,7 @@ miniwdl run WDL/main_filter_variants.wdl --input WDL/main_inputs_filter_variants
 WGS_pipeline/
 ├── requirements.txt          # Python dependencies
 ├── .nextflow.config          # Nextflow configuration
+├── pytest.ini                # Pytest configuration
 ├── nextflow/                 # Nextflow DSL2 modules and workflows
 ├── WDL/                      # WDL workflows and input files 
 ├── Docker/                   # Dockfiles for modular images                 
@@ -139,6 +140,7 @@ WGS_pipeline/
 ├── Result/                   # Pipeline outputs (FASTQ, BAM, VCF…)
 ├── Report/                   # QC and MultiQC reports
 ├── Scripts/                  # Wrapper scripts for pipeline steps
+├── tests/                    # Test codes
 ├── README.md                 # Project documentation
 ```
 
